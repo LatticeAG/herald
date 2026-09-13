@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/HeraldObservation.schema.json",
+  "title": "Herald HeraldObservation",
+  "type": "object",
+  "properties": {
+    "caller_jkt": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$",
+      "description": "base64url of 32 bytes"
+    },
+    "card_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "challenge": {
+      "type": "string"
+    },
+    "checked_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "evidence_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "revoked"
+      ]
+    },
+    "sub": {
+      "type": "string"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "caller_jkt",
+    "card_hash",
+    "challenge",
+    "checked_at",
+    "evidence_hash",
+    "status",
+    "sub",
+    "v"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,1500 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/ExportReply.schema.json",
+  "title": "Herald ExportReply",
+  "type": "object",
+  "properties": {
+    "next_revision": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        }
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "binding": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "agent_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "assurance": {
+                                    "enum": [
+                                      "operator-attested"
+                                    ]
+                                  },
+                                  "consent": {
+                                    "enum": [
+                                      "agent-accountability-v1"
+                                    ]
+                                  },
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "human_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "pattern": "^hb_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "principal_id": {
+                                    "type": "string",
+                                    "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "registrar_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "agent_key",
+                                  "assurance",
+                                  "consent",
+                                  "did",
+                                  "expires_at",
+                                  "human_key",
+                                  "id",
+                                  "issued_at",
+                                  "principal_id",
+                                  "previous",
+                                  "registrar_epoch",
+                                  "root",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "kind": {
+                            "const": "binding.enroll"
+                          }
+                        },
+                        "required": [
+                          "binding",
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "card": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "binding_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "capabilities_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "gateway_bindings": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "caller_jkt": {
+                                          "type": "string",
+                                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                                          "description": "base64url of 32 bytes"
+                                        },
+                                        "gateway": {
+                                          "type": "string",
+                                          "pattern": "^lsg_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "sub": {
+                                          "type": "string",
+                                          "pattern": "^lsu_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "tenant_id": {
+                                          "type": "string",
+                                          "pattern": "^ltn_[A-Za-z0-9_-]{21}$"
+                                        }
+                                      },
+                                      "required": [
+                                        "caller_jkt",
+                                        "gateway",
+                                        "sub",
+                                        "tenant_id"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    "maxItems": 4,
+                                    "description": "sorted unique by (gateway,tenant_id,sub)"
+                                  },
+                                  "human_principal": {
+                                    "type": "string",
+                                    "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "pattern": "^hc_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "key_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "not_before": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "status_index": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 131071
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "binding_hash",
+                                  "capabilities_hash",
+                                  "did",
+                                  "expires_at",
+                                  "gateway_bindings",
+                                  "human_principal",
+                                  "id",
+                                  "issued_at",
+                                  "key",
+                                  "key_epoch",
+                                  "not_before",
+                                  "previous",
+                                  "root",
+                                  "status_index",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "kind": {
+                            "const": "card.issue"
+                          }
+                        },
+                        "required": [
+                          "card",
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "binding": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "agent_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "assurance": {
+                                    "enum": [
+                                      "operator-attested"
+                                    ]
+                                  },
+                                  "consent": {
+                                    "enum": [
+                                      "agent-accountability-v1"
+                                    ]
+                                  },
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "human_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "pattern": "^hb_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "principal_id": {
+                                    "type": "string",
+                                    "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "registrar_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "agent_key",
+                                  "assurance",
+                                  "consent",
+                                  "did",
+                                  "expires_at",
+                                  "human_key",
+                                  "id",
+                                  "issued_at",
+                                  "principal_id",
+                                  "previous",
+                                  "registrar_epoch",
+                                  "root",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "card": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "binding_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "capabilities_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "gateway_bindings": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "caller_jkt": {
+                                          "type": "string",
+                                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                                          "description": "base64url of 32 bytes"
+                                        },
+                                        "gateway": {
+                                          "type": "string",
+                                          "pattern": "^lsg_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "sub": {
+                                          "type": "string",
+                                          "pattern": "^lsu_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "tenant_id": {
+                                          "type": "string",
+                                          "pattern": "^ltn_[A-Za-z0-9_-]{21}$"
+                                        }
+                                      },
+                                      "required": [
+                                        "caller_jkt",
+                                        "gateway",
+                                        "sub",
+                                        "tenant_id"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    "maxItems": 4,
+                                    "description": "sorted unique by (gateway,tenant_id,sub)"
+                                  },
+                                  "human_principal": {
+                                    "type": "string",
+                                    "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "pattern": "^hc_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "key_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "not_before": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "status_index": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 131071
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "binding_hash",
+                                  "capabilities_hash",
+                                  "did",
+                                  "expires_at",
+                                  "gateway_bindings",
+                                  "human_principal",
+                                  "id",
+                                  "issued_at",
+                                  "key",
+                                  "key_epoch",
+                                  "not_before",
+                                  "previous",
+                                  "root",
+                                  "status_index",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "kind": {
+                            "const": "binding.renew"
+                          }
+                        },
+                        "required": [
+                          "binding",
+                          "card",
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "card": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "binding_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "capabilities_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "gateway_bindings": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "caller_jkt": {
+                                          "type": "string",
+                                          "pattern": "^[A-Za-z0-9_-]{43}$",
+                                          "description": "base64url of 32 bytes"
+                                        },
+                                        "gateway": {
+                                          "type": "string",
+                                          "pattern": "^lsg_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "sub": {
+                                          "type": "string",
+                                          "pattern": "^lsu_[A-Za-z0-9_-]{21}$"
+                                        },
+                                        "tenant_id": {
+                                          "type": "string",
+                                          "pattern": "^ltn_[A-Za-z0-9_-]{21}$"
+                                        }
+                                      },
+                                      "required": [
+                                        "caller_jkt",
+                                        "gateway",
+                                        "sub",
+                                        "tenant_id"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    "maxItems": 4,
+                                    "description": "sorted unique by (gateway,tenant_id,sub)"
+                                  },
+                                  "human_principal": {
+                                    "type": "string",
+                                    "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "pattern": "^hc_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "key_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "not_before": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "status_index": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 131071
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "binding_hash",
+                                  "capabilities_hash",
+                                  "did",
+                                  "expires_at",
+                                  "gateway_bindings",
+                                  "human_principal",
+                                  "id",
+                                  "issued_at",
+                                  "key",
+                                  "key_epoch",
+                                  "not_before",
+                                  "previous",
+                                  "root",
+                                  "status_index",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "kind": {
+                            "const": "card.rotate"
+                          },
+                          "rotation": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "did": {
+                                    "type": "string",
+                                    "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                    "maxLength": 64
+                                  },
+                                  "expires_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "from_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "issued_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "new_card_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "new_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "nonce": {
+                                    "type": "string",
+                                    "pattern": "^hn_[A-Za-z0-9_-]{32}$"
+                                  },
+                                  "old_card_hash": {
+                                    "type": "string",
+                                    "pattern": "^[0-9a-f]{64}$"
+                                  },
+                                  "old_key_id": {
+                                    "type": "string",
+                                    "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "to_epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "did",
+                                  "expires_at",
+                                  "from_epoch",
+                                  "issued_at",
+                                  "new_card_hash",
+                                  "new_key",
+                                  "nonce",
+                                  "old_card_hash",
+                                  "old_key_id",
+                                  "root",
+                                  "to_epoch",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "card",
+                          "kind",
+                          "rotation"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                                "maxLength": 64
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^hb_[A-Za-z0-9_-]{21}$"
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^hc_[A-Za-z0-9_-]{21}$"
+                              }
+                            ]
+                          },
+                          "kind": {
+                            "const": "revoke"
+                          },
+                          "reason": {
+                            "enum": [
+                              "COMPROMISE",
+                              "WITHDRAWN",
+                              "RETIRED",
+                              "ADMINISTRATIVE"
+                            ]
+                          },
+                          "target": {
+                            "enum": [
+                              "agent",
+                              "binding",
+                              "card"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "kind",
+                          "reason",
+                          "target"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "document": {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "object",
+                                "properties": {
+                                  "control_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "created_at": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 253402300799
+                                  },
+                                  "cutover": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "properties": {
+                                          "log_hash": {
+                                            "type": "string",
+                                            "pattern": "^[0-9a-f]{64}$"
+                                          },
+                                          "seq": {
+                                            "type": "string",
+                                            "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                          }
+                                        },
+                                        "required": [
+                                          "log_hash",
+                                          "seq"
+                                        ],
+                                        "additionalProperties": false
+                                      }
+                                    ]
+                                  },
+                                  "epoch": {
+                                    "type": "string",
+                                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                                  },
+                                  "origin": {
+                                    "type": "string",
+                                    "pattern": "^https://[^/?#]+(:443)?$",
+                                    "description": "HTTPS origin, no path/userinfo/query/fragment, port 443 only; http://localhost allowed in development profiles"
+                                  },
+                                  "previous": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "pattern": "^[0-9a-f]{64}$"
+                                      }
+                                    ]
+                                  },
+                                  "registrar_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "root": {
+                                    "type": "string",
+                                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                                  },
+                                  "service_key": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                      },
+                                      "public_key": {
+                                        "type": "string",
+                                        "pattern": "^[A-Za-z0-9_-]{43}$",
+                                        "description": "base64url of 32 bytes"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "public_key"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "status_slots": {
+                                    "const": 131072
+                                  },
+                                  "v": {
+                                    "const": 1
+                                  }
+                                },
+                                "required": [
+                                  "control_key",
+                                  "created_at",
+                                  "cutover",
+                                  "epoch",
+                                  "origin",
+                                  "previous",
+                                  "registrar_key",
+                                  "root",
+                                  "service_key",
+                                  "status_slots",
+                                  "v"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "proofs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "kid": {
+                                      "type": "string",
+                                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                                    },
+                                    "signature": {
+                                      "type": "string",
+                                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                                      "description": "base64url of 64 bytes"
+                                    }
+                                  },
+                                  "required": [
+                                    "kid",
+                                    "signature"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "minItems": 1,
+                                "maxItems": 16,
+                                "description": "strictly ascending unique by kid"
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "proofs"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "kind": {
+                            "const": "root.rotate"
+                          }
+                        },
+                        "required": [
+                          "document",
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "root.freeze"
+                          },
+                          "reason": {
+                            "enum": [
+                              "COMPROMISE",
+                              "ADMINISTRATIVE"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "reason"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ],
+                    "discriminator": {
+                      "propertyName": "kind"
+                    }
+                  },
+                  "actor": {
+                    "type": "string",
+                    "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                  },
+                  "expected_revision": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                  },
+                  "expires_at": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 253402300799
+                  },
+                  "issued_at": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 253402300799
+                  },
+                  "op_id": {
+                    "type": "string",
+                    "pattern": "^ho_[A-Za-z0-9_-]{21}$"
+                  },
+                  "root": {
+                    "type": "string",
+                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                  },
+                  "subject": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+                        "maxLength": 64
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                      }
+                    ]
+                  },
+                  "v": {
+                    "const": 1
+                  }
+                },
+                "required": [
+                  "action",
+                  "actor",
+                  "expected_revision",
+                  "expires_at",
+                  "issued_at",
+                  "op_id",
+                  "root",
+                  "subject",
+                  "v"
+                ],
+                "additionalProperties": false
+              },
+              "proofs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kid": {
+                      "type": "string",
+                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                    },
+                    "signature": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                      "description": "base64url of 64 bytes"
+                    }
+                  },
+                  "required": [
+                    "kid",
+                    "signature"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "description": "strictly ascending unique by kid"
+              }
+            },
+            "required": [
+              "body",
+              "proofs"
+            ],
+            "additionalProperties": false
+          },
+          "receipt": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object",
+                "properties": {
+                  "allocated": {
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 131071
+                      }
+                    ]
+                  },
+                  "event_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "kind": {
+                    "enum": [
+                      "RootCreated",
+                      "RootRotated",
+                      "RootFrozen",
+                      "BindingEnrolled",
+                      "BindingRenewed",
+                      "CardIssued",
+                      "CardRotated",
+                      "CardRevoked",
+                      "AgentRevoked",
+                      "BindingRevoked"
+                    ]
+                  },
+                  "objects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "op_id": {
+                    "type": "string",
+                    "pattern": "^ho_[A-Za-z0-9_-]{21}$"
+                  },
+                  "request_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "root": {
+                    "type": "string",
+                    "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+                  },
+                  "seq": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9][0-9]{0,19})$"
+                  },
+                  "v": {
+                    "const": 1
+                  }
+                },
+                "required": [
+                  "allocated",
+                  "event_hash",
+                  "kind",
+                  "objects",
+                  "op_id",
+                  "request_hash",
+                  "root",
+                  "seq",
+                  "v"
+                ],
+                "additionalProperties": false
+              },
+              "proofs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kid": {
+                      "type": "string",
+                      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                    },
+                    "signature": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{86}$",
+                      "description": "base64url of 64 bytes"
+                    }
+                  },
+                  "required": [
+                    "kid",
+                    "signature"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "description": "strictly ascending unique by kid"
+              }
+            },
+            "required": [
+              "body",
+              "proofs"
+            ],
+            "additionalProperties": false
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,19})$"
+          }
+        },
+        "required": [
+          "command",
+          "receipt",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 100
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "next_revision",
+    "records",
+    "v"
+  ],
+  "additionalProperties": false
+}

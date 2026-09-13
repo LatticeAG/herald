@@ -1,0 +1,12 @@
+{
+  "name": "@latticeag/herald-client",
+  "version": "1.0.0",
+  "description": "Herald client: HTTP wrappers, trust store, status cache, local signer, LexScope adapter",
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "files": ["src", "dist"],
+  "dependencies": { "@latticeag/herald-core": "1.0.0" },
+  "engines": { "node": ">=22.5.0" }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/KeyFile.schema.json",
+  "title": "Herald KeyFile",
+  "type": "object",
+  "properties": {
+    "algorithm": {
+      "enum": [
+        "Ed25519"
+      ]
+    },
+    "kid": {
+      "type": "string",
+      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+    },
+    "seed_b64u": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$",
+      "description": "base64url of 32 bytes"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "algorithm",
+    "kid",
+    "seed_b64u",
+    "v"
+  ],
+  "additionalProperties": false
+}

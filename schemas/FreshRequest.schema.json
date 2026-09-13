@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/FreshRequest.schema.json",
+  "title": "Herald FreshRequest",
+  "type": "object",
+  "properties": {
+    "challenge": {
+      "type": "string",
+      "pattern": "^hn_[A-Za-z0-9_-]{32}$"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "challenge",
+    "v"
+  ],
+  "additionalProperties": false
+}

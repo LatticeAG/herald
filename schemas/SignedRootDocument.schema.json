@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/SignedRootDocument.schema.json",
+  "title": "Herald SignedRootDocument",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "control_key": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+            },
+            "public_key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$",
+              "description": "base64url of 32 bytes"
+            }
+          },
+          "required": [
+            "id",
+            "public_key"
+          ],
+          "additionalProperties": false
+        },
+        "created_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "cutover": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "log_hash": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "seq": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,19})$"
+                }
+              },
+              "required": [
+                "log_hash",
+                "seq"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "origin": {
+          "type": "string",
+          "pattern": "^https://[^/?#]+(:443)?$",
+          "description": "HTTPS origin, no path/userinfo/query/fragment, port 443 only; http://localhost allowed in development profiles"
+        },
+        "previous": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "registrar_key": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+            },
+            "public_key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$",
+              "description": "base64url of 32 bytes"
+            }
+          },
+          "required": [
+            "id",
+            "public_key"
+          ],
+          "additionalProperties": false
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+        },
+        "service_key": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+            },
+            "public_key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$",
+              "description": "base64url of 32 bytes"
+            }
+          },
+          "required": [
+            "id",
+            "public_key"
+          ],
+          "additionalProperties": false
+        },
+        "status_slots": {
+          "const": 131072
+        },
+        "v": {
+          "const": 1
+        }
+      },
+      "required": [
+        "control_key",
+        "created_at",
+        "cutover",
+        "epoch",
+        "origin",
+        "previous",
+        "registrar_key",
+        "root",
+        "service_key",
+        "status_slots",
+        "v"
+      ],
+      "additionalProperties": false
+    },
+    "proofs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{86}$",
+            "description": "base64url of 64 bytes"
+          }
+        },
+        "required": [
+          "kid",
+          "signature"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "description": "strictly ascending unique by kid"
+    }
+  },
+  "required": [
+    "body",
+    "proofs"
+  ],
+  "additionalProperties": false
+}

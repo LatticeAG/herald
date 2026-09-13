@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/ReadinessReply.schema.json",
+  "title": "Herald ReadinessReply",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "not_ready"
+      ]
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "code",
+    "status",
+    "v"
+  ],
+  "additionalProperties": false
+}

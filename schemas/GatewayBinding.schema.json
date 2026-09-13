@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/GatewayBinding.schema.json",
+  "title": "Herald GatewayBinding",
+  "type": "object",
+  "properties": {
+    "caller_jkt": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$",
+      "description": "base64url of 32 bytes"
+    },
+    "gateway": {
+      "type": "string",
+      "pattern": "^lsg_[A-Za-z0-9_-]{21}$"
+    },
+    "sub": {
+      "type": "string",
+      "pattern": "^lsu_[A-Za-z0-9_-]{21}$"
+    },
+    "tenant_id": {
+      "type": "string",
+      "pattern": "^ltn_[A-Za-z0-9_-]{21}$"
+    }
+  },
+  "required": [
+    "caller_jkt",
+    "gateway",
+    "sub",
+    "tenant_id"
+  ],
+  "additionalProperties": false
+}

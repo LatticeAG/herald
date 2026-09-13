@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/RootPin.schema.json",
+  "title": "Herald RootPin",
+  "type": "object",
+  "properties": {
+    "control_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "genesis_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "min_epoch": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    },
+    "origin": {
+      "type": "string",
+      "pattern": "^https://[^/?#]+(:443)?$",
+      "description": "HTTPS origin, no path/userinfo/query/fragment, port 443 only; http://localhost allowed in development profiles"
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+    }
+  },
+  "required": [
+    "control_fingerprint",
+    "enabled",
+    "genesis_hash",
+    "min_epoch",
+    "origin",
+    "root"
+  ],
+  "additionalProperties": false
+}

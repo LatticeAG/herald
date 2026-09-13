@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/AgentRecord.schema.json",
+  "title": "Herald AgentRecord",
+  "type": "object",
+  "properties": {
+    "binding_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "current_card_hash": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      ]
+    },
+    "current_key": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+        },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "description": "base64url of 32 bytes"
+        }
+      },
+      "required": [
+        "id",
+        "public_key"
+      ],
+      "additionalProperties": false
+    },
+    "did": {
+      "type": "string",
+      "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+      "maxLength": 64
+    },
+    "key_epoch": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+    },
+    "state": {
+      "enum": [
+        "enrolled",
+        "active",
+        "revoked"
+      ]
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "binding_hash",
+    "current_card_hash",
+    "current_key",
+    "did",
+    "key_epoch",
+    "revision",
+    "root",
+    "state",
+    "v"
+  ],
+  "additionalProperties": false
+}

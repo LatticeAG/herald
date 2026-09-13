@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/HumanBinding.schema.json",
+  "title": "Herald HumanBinding",
+  "type": "object",
+  "properties": {
+    "agent_key": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+        },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "description": "base64url of 32 bytes"
+        }
+      },
+      "required": [
+        "id",
+        "public_key"
+      ],
+      "additionalProperties": false
+    },
+    "assurance": {
+      "enum": [
+        "operator-attested"
+      ]
+    },
+    "consent": {
+      "enum": [
+        "agent-accountability-v1"
+      ]
+    },
+    "did": {
+      "type": "string",
+      "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+      "maxLength": 64
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "human_key": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+        },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "description": "base64url of 32 bytes"
+        }
+      },
+      "required": [
+        "id",
+        "public_key"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^hb_[A-Za-z0-9_-]{21}$"
+    },
+    "issued_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "principal_id": {
+      "type": "string",
+      "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+    },
+    "previous": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      ]
+    },
+    "registrar_epoch": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "agent_key",
+    "assurance",
+    "consent",
+    "did",
+    "expires_at",
+    "human_key",
+    "id",
+    "issued_at",
+    "principal_id",
+    "previous",
+    "registrar_epoch",
+    "root",
+    "v"
+  ],
+  "additionalProperties": false
+}

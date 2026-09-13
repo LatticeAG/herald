@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/SignedRotation.schema.json",
+  "title": "Herald SignedRotation",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "string",
+          "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+          "maxLength": 64
+        },
+        "expires_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "from_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "issued_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "new_card_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "new_key": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+            },
+            "public_key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$",
+              "description": "base64url of 32 bytes"
+            }
+          },
+          "required": [
+            "id",
+            "public_key"
+          ],
+          "additionalProperties": false
+        },
+        "nonce": {
+          "type": "string",
+          "pattern": "^hn_[A-Za-z0-9_-]{32}$"
+        },
+        "old_card_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "old_key_id": {
+          "type": "string",
+          "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+        },
+        "to_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "v": {
+          "const": 1
+        }
+      },
+      "required": [
+        "did",
+        "expires_at",
+        "from_epoch",
+        "issued_at",
+        "new_card_hash",
+        "new_key",
+        "nonce",
+        "old_card_hash",
+        "old_key_id",
+        "root",
+        "to_epoch",
+        "v"
+      ],
+      "additionalProperties": false
+    },
+    "proofs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{86}$",
+            "description": "base64url of 64 bytes"
+          }
+        },
+        "required": [
+          "kid",
+          "signature"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "description": "strictly ascending unique by kid"
+    }
+  },
+  "required": [
+    "body",
+    "proofs"
+  ],
+  "additionalProperties": false
+}

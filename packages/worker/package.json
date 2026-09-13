@@ -1,0 +1,12 @@
+{
+  "name": "@latticeag/herald-worker",
+  "version": "1.0.0",
+  "description": "Herald registry: RootDO reducer, SQLite storage, HTTP routes, Worker/dev-server surfaces",
+  "type": "module",
+  "license": "MIT",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "files": ["src", "dist"],
+  "dependencies": { "@latticeag/herald-core": "1.0.0" },
+  "engines": { "node": ">=22.5.0" }
+}

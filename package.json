@@ -1,0 +1,27 @@
+{
+  "name": "herald",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Herald — sovereign agent identity registry: DIDs, signed Agent Cards, hash-chained revocations, human binding, key rotation",
+  "type": "module",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.ts\" \"packages/*/test/**/*.test.ts\"",
+    "test:conformance": "node --test tests/conformance/",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
+    "fixtures": "PYTHONPATH=python/src python3 -m latticeag_herald.fixtures > fixtures/fixtures.json",
+    "fuzz:differential": "node tests/fuzz/differential.ts",
+    "fuzz:schedule": "node tests/fuzz/schedule.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.1",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/Frontier.schema.json",
+  "title": "Herald Frontier",
+  "type": "object",
+  "properties": {
+    "log_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+    },
+    "root_epoch": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    },
+    "seq": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,19})$"
+    }
+  },
+  "required": [
+    "log_hash",
+    "root",
+    "root_epoch",
+    "seq"
+  ],
+  "additionalProperties": false
+}

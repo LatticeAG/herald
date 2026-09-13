@@ -1,0 +1,16 @@
+{
+  "name": "@latticeag/herald-cli",
+  "version": "1.0.0",
+  "description": "herald command line interface",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "herald": "./src/herald.ts" },
+  "exports": { ".": "./src/cli.ts" },
+  "files": ["src", "dist"],
+  "dependencies": {
+    "@latticeag/herald-core": "1.0.0",
+    "@latticeag/herald-client": "1.0.0",
+    "@latticeag/herald-worker": "1.0.0"
+  },
+  "engines": { "node": ">=22.5.0" }
+}

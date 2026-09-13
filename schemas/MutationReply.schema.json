@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/MutationReply.schema.json",
+  "title": "Herald MutationReply",
+  "type": "object",
+  "properties": {
+    "receipt": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "allocated": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 131071
+                }
+              ]
+            },
+            "event_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "kind": {
+              "enum": [
+                "RootCreated",
+                "RootRotated",
+                "RootFrozen",
+                "BindingEnrolled",
+                "BindingRenewed",
+                "CardIssued",
+                "CardRotated",
+                "CardRevoked",
+                "AgentRevoked",
+                "BindingRevoked"
+              ]
+            },
+            "objects": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "op_id": {
+              "type": "string",
+              "pattern": "^ho_[A-Za-z0-9_-]{21}$"
+            },
+            "request_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "root": {
+              "type": "string",
+              "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+            },
+            "seq": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "v": {
+              "const": 1
+            }
+          },
+          "required": [
+            "allocated",
+            "event_hash",
+            "kind",
+            "objects",
+            "op_id",
+            "request_hash",
+            "root",
+            "seq",
+            "v"
+          ],
+          "additionalProperties": false
+        },
+        "proofs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kid": {
+                "type": "string",
+                "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+              },
+              "signature": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{86}$",
+                "description": "base64url of 64 bytes"
+              }
+            },
+            "required": [
+              "kid",
+              "signature"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "description": "strictly ascending unique by kid"
+        }
+      },
+      "required": [
+        "body",
+        "proofs"
+      ],
+      "additionalProperties": false
+    },
+    "record": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "binding_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "current_card_hash": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              ]
+            },
+            "current_key": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+                },
+                "public_key": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_-]{43}$",
+                  "description": "base64url of 32 bytes"
+                }
+              },
+              "required": [
+                "id",
+                "public_key"
+              ],
+              "additionalProperties": false
+            },
+            "did": {
+              "type": "string",
+              "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+              "maxLength": 64
+            },
+            "key_epoch": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "revision": {
+              "type": "string",
+              "pattern": "^(0|[1-9][0-9]{0,19})$"
+            },
+            "root": {
+              "type": "string",
+              "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+            },
+            "state": {
+              "enum": [
+                "enrolled",
+                "active",
+                "revoked"
+              ]
+            },
+            "v": {
+              "const": 1
+            }
+          },
+          "required": [
+            "binding_hash",
+            "current_card_hash",
+            "current_key",
+            "did",
+            "key_epoch",
+            "revision",
+            "root",
+            "state",
+            "v"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "receipt",
+    "record",
+    "v"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/HealthReply.schema.json",
+  "title": "Herald HealthReply",
+  "type": "object",
+  "properties": {
+    "status": {
+      "enum": [
+        "alive"
+      ]
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "status",
+    "v"
+  ],
+  "additionalProperties": false
+}

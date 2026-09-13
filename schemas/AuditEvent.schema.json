@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/AuditEvent.schema.json",
+  "title": "Herald AuditEvent",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "allocated": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 131071
+            }
+          ]
+        },
+        "invalidated": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": "strictly ascending unique"
+        },
+        "kind": {
+          "enum": [
+            "RootCreated",
+            "RootRotated",
+            "RootFrozen",
+            "BindingEnrolled",
+            "BindingRenewed",
+            "CardIssued",
+            "CardRotated",
+            "CardRevoked",
+            "AgentRevoked",
+            "BindingRevoked"
+          ]
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "prev": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "request_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+        },
+        "root_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "root_state": {
+          "enum": [
+            "active",
+            "frozen"
+          ]
+        },
+        "seq": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "time": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "v": {
+          "const": 1
+        }
+      },
+      "required": [
+        "allocated",
+        "invalidated",
+        "kind",
+        "objects",
+        "prev",
+        "request_hash",
+        "root",
+        "root_epoch",
+        "root_state",
+        "seq",
+        "time",
+        "v"
+      ],
+      "additionalProperties": false
+    },
+    "proofs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{86}$",
+            "description": "base64url of 64 bytes"
+          }
+        },
+        "required": [
+          "kid",
+          "signature"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "description": "strictly ascending unique by kid"
+    }
+  },
+  "required": [
+    "body",
+    "proofs"
+  ],
+  "additionalProperties": false
+}

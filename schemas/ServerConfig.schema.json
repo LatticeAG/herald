@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/ServerConfig.schema.json",
+  "title": "Herald ServerConfig",
+  "type": "object",
+  "properties": {
+    "max_agents": {
+      "const": 8192
+    },
+    "private_data_key_binding": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,31}$"
+    },
+    "production": {
+      "type": "boolean"
+    },
+    "public_fresh_per_minute": {
+      "const": 120
+    },
+    "public_get_per_minute": {
+      "const": 120
+    },
+    "revocation_reserve_per_minute": {
+      "const": 60
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+    },
+    "root_do_binding": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,31}$"
+    },
+    "root_document_path": {
+      "type": "string"
+    },
+    "service_secret_binding": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,31}$"
+    },
+    "status_slots": {
+      "const": 131072
+    },
+    "v": {
+      "const": 1
+    },
+    "write_per_actor_per_minute": {
+      "const": 30
+    }
+  },
+  "required": [
+    "max_agents",
+    "private_data_key_binding",
+    "production",
+    "public_fresh_per_minute",
+    "public_get_per_minute",
+    "revocation_reserve_per_minute",
+    "root",
+    "root_do_binding",
+    "root_document_path",
+    "service_secret_binding",
+    "status_slots",
+    "v",
+    "write_per_actor_per_minute"
+  ],
+  "additionalProperties": false
+}

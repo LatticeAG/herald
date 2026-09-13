@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/ClientConfig.schema.json",
+  "title": "Herald ClientConfig",
+  "type": "object",
+  "properties": {
+    "cache_dir": {
+      "type": "string"
+    },
+    "clock_max_error_s": {
+      "const": 2
+    },
+    "fresh_max_age_s": {
+      "const": 5
+    },
+    "key_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kid",
+          "path"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    },
+    "mode": {
+      "enum": [
+        "production",
+        "development"
+      ]
+    },
+    "read_max_age_s": {
+      "const": 60
+    },
+    "roots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "control_fingerprint": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "genesis_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "min_epoch": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,19})$"
+          },
+          "origin": {
+            "type": "string",
+            "pattern": "^https://[^/?#]+(:443)?$",
+            "description": "HTTPS origin, no path/userinfo/query/fragment, port 443 only; http://localhost allowed in development profiles"
+          },
+          "root": {
+            "type": "string",
+            "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+          }
+        },
+        "required": [
+          "control_fingerprint",
+          "enabled",
+          "genesis_hash",
+          "min_epoch",
+          "origin",
+          "root"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 32
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "cache_dir",
+    "clock_max_error_s",
+    "fresh_max_age_s",
+    "key_refs",
+    "mode",
+    "read_max_age_s",
+    "roots",
+    "v"
+  ],
+  "additionalProperties": false
+}

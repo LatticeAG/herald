@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/ExportSummary.schema.json",
+  "title": "Herald ExportSummary",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "next_revision": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        }
+      ]
+    },
+    "path": {
+      "type": "string"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "count",
+    "hash",
+    "next_revision",
+    "path",
+    "v"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/Proof.schema.json",
+  "title": "Herald Proof",
+  "type": "object",
+  "properties": {
+    "kid": {
+      "type": "string",
+      "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{86}$",
+      "description": "base64url of 64 bytes"
+    }
+  },
+  "required": [
+    "kid",
+    "signature"
+  ],
+  "additionalProperties": false
+}

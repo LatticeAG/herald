@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/SignedAgentCard.schema.json",
+  "title": "Herald SignedAgentCard",
+  "type": "object",
+  "properties": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "binding_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "capabilities_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "did": {
+          "type": "string",
+          "pattern": "^did:herald:hr_[A-Za-z0-9_-]{21}:ha_[A-Za-z0-9_-]{21}$",
+          "maxLength": 64
+        },
+        "expires_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "gateway_bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "caller_jkt": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{43}$",
+                "description": "base64url of 32 bytes"
+              },
+              "gateway": {
+                "type": "string",
+                "pattern": "^lsg_[A-Za-z0-9_-]{21}$"
+              },
+              "sub": {
+                "type": "string",
+                "pattern": "^lsu_[A-Za-z0-9_-]{21}$"
+              },
+              "tenant_id": {
+                "type": "string",
+                "pattern": "^ltn_[A-Za-z0-9_-]{21}$"
+              }
+            },
+            "required": [
+              "caller_jkt",
+              "gateway",
+              "sub",
+              "tenant_id"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 4,
+          "description": "sorted unique by (gateway,tenant_id,sub)"
+        },
+        "human_principal": {
+          "type": "string",
+          "pattern": "^hp_[A-Za-z0-9_-]{21}$"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^hc_[A-Za-z0-9_-]{21}$"
+        },
+        "issued_at": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "key": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+            },
+            "public_key": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$",
+              "description": "base64url of 32 bytes"
+            }
+          },
+          "required": [
+            "id",
+            "public_key"
+          ],
+          "additionalProperties": false
+        },
+        "key_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,19})$"
+        },
+        "not_before": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "previous": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^hr_[A-Za-z0-9_-]{21}$"
+        },
+        "status_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 131071
+        },
+        "v": {
+          "const": 1
+        }
+      },
+      "required": [
+        "binding_hash",
+        "capabilities_hash",
+        "did",
+        "expires_at",
+        "gateway_bindings",
+        "human_principal",
+        "id",
+        "issued_at",
+        "key",
+        "key_epoch",
+        "not_before",
+        "previous",
+        "root",
+        "status_index",
+        "v"
+      ],
+      "additionalProperties": false
+    },
+    "proofs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kid": {
+            "type": "string",
+            "pattern": "^hk_[A-Za-z0-9_-]{21}$"
+          },
+          "signature": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{86}$",
+            "description": "base64url of 64 bytes"
+          }
+        },
+        "required": [
+          "kid",
+          "signature"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "description": "strictly ascending unique by kid"
+    }
+  },
+  "required": [
+    "body",
+    "proofs"
+  ],
+  "additionalProperties": false
+}

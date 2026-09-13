@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://latticeag.dev/schemas/herald/HeraldCheck.schema.json",
+  "title": "Herald HeraldCheck",
+  "type": "object",
+  "properties": {
+    "binding": {
+      "type": "object",
+      "properties": {
+        "card_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "card_id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]{0,31}$"
+        }
+      },
+      "required": [
+        "card_hash",
+        "card_id",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "caller_jkt": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$",
+      "description": "base64url of 32 bytes"
+    },
+    "challenge": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "fresh",
+        "bounded_cache"
+      ]
+    },
+    "now": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "sub": {
+      "type": "string"
+    },
+    "tenant_id": {
+      "type": "string"
+    },
+    "v": {
+      "const": 1
+    }
+  },
+  "required": [
+    "binding",
+    "caller_jkt",
+    "challenge",
+    "mode",
+    "now",
+    "sub",
+    "tenant_id",
+    "v"
+  ],
+  "additionalProperties": false
+}
