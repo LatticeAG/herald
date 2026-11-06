@@ -54,6 +54,8 @@ Herald is **not** a token-minting system, a delegation tree, a governance court,
 
 Node 22.5+ (built-in `node:sqlite` and TypeScript type-stripping). No runtime dependencies.
 
+CI runs the TypeScript checks on Node 22 and 24; the smoke job runs on Node 24. SQLite warning behavior depends on the Node release. Node 22 can emit an `ExperimentalWarning` on stderr when `node:sqlite` is loaded, including when running the server, conformance tests, and schedule fuzzer. Successful commands can therefore produce stderr; consumers should use exit status and structured output to determine success.
+
 ```bash
 npm install
 npm test                    # 60-vector conformance suite + schema coherence
@@ -88,7 +90,7 @@ herald verify fresh  --bundle bundle.json --root $R --json
 herald doctor        --root $R --json
 ```
 
-`tests/smoke/mint.ts` mints a complete development playground (fixture keys, real-time commands) — see the [smoke section](#conformance).
+`tests/smoke/mint.ts` mints a complete development playground (fixture keys, real-time commands) — see the [smoke section](#conformance). It writes the client origin using `SMOKE_PORT` (default 8931). When running the minter and server manually, set `SMOKE_PORT` before minting and pass the same port to `herald serve --port`; otherwise the client connects to the wrong port. The smoke script passes its chosen port to both steps.
 
 ## Protocol
 
