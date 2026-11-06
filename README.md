@@ -54,7 +54,7 @@ Herald is **not** a token-minting system, a delegation tree, a governance court,
 
 Node 22.5+ (built-in `node:sqlite` and TypeScript type-stripping). No runtime dependencies.
 
-Node 22 can emit an `ExperimentalWarning` on stderr when `node:sqlite` is loaded, including when running the server, conformance tests, and schedule fuzzer. Successful commands can therefore produce stderr; consumers should use exit status and structured output to determine success.
+CI runs the TypeScript checks on Node 22 and 24; the smoke job runs on Node 24. SQLite warning behavior depends on the Node release. Node 22 can emit an `ExperimentalWarning` on stderr when `node:sqlite` is loaded, including when running the server, conformance tests, and schedule fuzzer. Successful commands can therefore produce stderr; consumers should use exit status and structured output to determine success.
 
 ```bash
 npm install
