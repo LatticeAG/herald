@@ -22,7 +22,7 @@ echo "== root init =="
 $HERALD root init $CFG --document "$DIR/genesis.json" --state "$DIR/state" | grep -q '"kind":"RootCreated"'
 
 echo "== serve =="
-$HERALD serve --config "$DIR/client.json" --port "$PORT" >/dev/null 2>&1 &
+$HERALD serve --config "$DIR/client.json" --port "$PORT" &
 sleep 1.5
 curl -sf http://localhost:$PORT/healthz | grep -q '"status":"alive"'
 curl -sf http://localhost:$PORT/readyz | grep -q '"status":"ready"'
