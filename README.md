@@ -90,7 +90,7 @@ herald verify fresh  --bundle bundle.json --root $R --json
 herald doctor        --root $R --json
 ```
 
-`tests/smoke/mint.ts` mints a complete development playground (fixture keys, real-time commands) — see the [smoke section](#conformance).
+`tests/smoke/mint.ts` mints a complete development playground (fixture keys, real-time commands) — see the [smoke section](#conformance). It writes the client origin using `SMOKE_PORT` (default 8931). When running the minter and server manually, set `SMOKE_PORT` before minting and pass the same port to `herald serve --port`; otherwise the client connects to the wrong port. The smoke script passes its chosen port to both steps.
 
 ## Protocol
 

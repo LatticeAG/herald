@@ -13,7 +13,7 @@ HERALD="node $REPO/packages/cli/src/herald.ts"
 CFG="--config $DIR/client.json --json"
 
 echo "== mint playground =="
-node "$REPO/tests/smoke/mint.ts" "$DIR"
+SMOKE_PORT="$PORT" node "$REPO/tests/smoke/mint.ts" "$DIR"
 
 echo "== config check =="
 $HERALD config check $CFG | grep -q '"valid":true'
