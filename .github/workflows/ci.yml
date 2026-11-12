@@ -7,19 +7,22 @@ on:
 
 jobs:
   typescript:
+    strategy:
+      matrix:
+        node: ["22", "24"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: ${{ matrix.node }}
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
       - name: Differential fuzz (CI-sized)
         run: FUZZ_CASES=20000 STRICT_EVERY=50 npm run fuzz:differential
       - name: Schedule fuzz (CI-sized)
-        run: FUZZ_CASES=500 npm run fuzz:schedule
+        run: FUZZ_SCHEDULE=500 npm run fuzz:schedule
       - name: Schema artifacts are fresh
         run: |
           node scripts/gen-schemas.ts /tmp/schemas-check
